@@ -26,5 +26,13 @@
         os: "linux",
         user: null,
     };
-    // your code here
+
+    document.getElementById('run').addEventListener('click', () => {
+        const updatedComputers = computers.map(computer => ({
+            ...defaultProps, 
+            ...computer 
+        }));
+        
+        console.log(updatedComputers);
+    });
 })();
