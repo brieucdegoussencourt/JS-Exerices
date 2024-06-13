@@ -38,5 +38,22 @@
         "arboré",
     ]);
 
-    // your code here
+    
+
+    const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    document.getElementById("run").addEventListener("click", () => {
+        const bird = getRandomElement(birds);
+        const adjectivesArray = Array.from(adjectives); // Convert Set to Array
+        let adjective = getRandomElement(adjectivesArray);
+
+        if (bird.fem) {
+            adjective += "e";
+        }
+
+        const article = bird.fem ? "La" : "Le";
+        const birdName = `${article} ${bird.name} ${adjective}`;
+
+        document.getElementById("target").textContent = birdName;
+    });
 })();

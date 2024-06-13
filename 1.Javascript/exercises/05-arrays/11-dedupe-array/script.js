@@ -27,5 +27,8 @@
         "cerise",
     ];
 
-    // your code here
+    document.getElementById('run').addEventListener('click', () => {
+        const dedupedFruits = [...new Set(fruits)];
+        console.log(dedupedFruits);
+    });
 })();
