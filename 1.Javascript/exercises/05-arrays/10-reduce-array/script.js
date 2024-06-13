@@ -88,14 +88,9 @@
         },
     ];
 
-<<<<<<< HEAD
     document.getElementById('run').addEventListener('click', () => {
         const totalAge = people.reduce((sum, person) => sum + person.age, 0);
         console.log(totalAge);
     });
 
-=======
-    // your code here
-    test
->>>>>>> ba0be19329700a353406aa9e94bc8e182ba1b696
 })();
