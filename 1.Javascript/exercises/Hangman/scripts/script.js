@@ -1,3 +1,5 @@
+// This script was created tks to this tutorial: https://www.youtube.com/watch?v=ugV5c3xRtrc
+
 // selecting elements from the page (variables)
 const wordDisplay = document.querySelector(".word-display");
 const guessesText = document.querySelector(".guesses-text b");
