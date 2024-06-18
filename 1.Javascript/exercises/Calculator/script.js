@@ -1,6 +1,5 @@
-// Récupérer la valeur des boutons class number
+// Récupérer les boutons class number
 let buttons = document.querySelectorAll('.number');
-
 
 // Récupérer les boutons class actions
 let addition = document.getElementById("addition");
@@ -18,7 +17,6 @@ function updateDisplay(event) {
     clickedValues += event.target.innerHTML;  // Ajouter la valeur du bouton cliqué
     let display = document.querySelector(".display p");
     display.innerHTML = clickedValues;  // Mettre à jour l'affichage avec les valeurs concaténées
-    console.log(clickedValues)
 }
 
 // Gestion de l'événement click sur les boutons class number
@@ -32,12 +30,19 @@ substraction.addEventListener("click", updateDisplay);
 division.addEventListener("click", updateDisplay);
 multiplication.addEventListener("click", updateDisplay);
 
+// Gestion de l'évènement click sur le bouton "=" => Obtenir le résultat
+equal.addEventListener("click", displayResult);
+
+// Gestion de l'évènement click sur le bouton "C" =>Réinitialiser l'affichage (Clear)
+clear.addEventListener("click", clearDisplay);
+
 
 // Fonction pour obtenir le résultat
 function computeResult(str) {
     return Function("return " + str)();
 }
 
+// Fonction pour afficher le résultat
 function displayResult() {
     try {
         let result = computeResult(clickedValues);
@@ -55,12 +60,8 @@ function displayResult() {
 function clearDisplay() {
     clickedValues = "";
     let display = document.querySelector(".display p");
-    display.innerHTML = "";
+    display.innerHTML = "0";
 }
 
-// Obtenir le résultat
-equal.addEventListener("click", displayResult);
 
-// Réinitialiser l'affichage
-clear.addEventListener("click", clearDisplay);
 

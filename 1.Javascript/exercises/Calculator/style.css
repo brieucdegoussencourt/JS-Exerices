@@ -1,5 +1,29 @@
+body{
+  font-family: "Roboto";
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px black solid;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: 
+  justify-content: center;
+
+}
+
 .display{
     border: 1px solid black;
+    height: 50px;
+    background-color: beige;
+}
+
+p{
+  margin-left: 1rem;
 }
 
 button {
