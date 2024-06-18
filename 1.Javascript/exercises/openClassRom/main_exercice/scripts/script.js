@@ -9,7 +9,6 @@
  * @param {number} score : le score de l'utilisateur
  * @param {number} nbMotsProposes : le nombre de mots proposés à l'utilisateur
  */
-
 function afficherResultat(score, nbMotsProposes) {
     // Récupération de la zone dans laquelle on va écrire le score
     let spanScore = document.querySelector(".zoneScore span")
@@ -19,11 +18,31 @@ function afficherResultat(score, nbMotsProposes) {
     spanScore.innerText = affichageScore
 }
 
+/**
+ * Cette fonction affiche une proposition, que le joueur devra recopier, 
+ * dans la zone "zoneProposition"
+ * @param {string} proposition : la proposition à afficher
+ */
 function afficherProposition(proposition) {
     let zoneProposition = document.querySelector(".zoneProposition")
     zoneProposition.innerText = proposition
 }
 
+
+
+
+
+
+/**
+ * Cette fonction construit et affiche l'email. 
+ * @param {string} nom : le nom du joueur
+ * @param {string} email : l'email de la personne avec qui il veut partager son score
+ * @param {string} score : le score. 
+ */
+function afficherEmail(nom, email, score) {
+    let mailto = `mailto:${email}?subject=Partage du score Azertype&body=Salut, je suis ${nom} et je viens de réaliser le score ${score} sur le site d'Azertype !`
+    location.href = mailto
+}
 
 /**
  * Cette fonction lance le jeu. 
@@ -31,44 +50,70 @@ function afficherProposition(proposition) {
  */
 function lancerJeu() {
     // Initialisations
+    initAddEventListenerPopup()
     let score = 0
     let i = 0
     let listeProposition = listeMots
 
-    // Récupération du bouton de validation et ajout d'un évènement click
     let btnValiderMot = document.getElementById("btnValiderMot")
     let inputEcriture = document.getElementById("inputEcriture")
+
     afficherProposition(listeProposition[i])
+
+    // Gestion de l'événement click sur le bouton "valider"
     btnValiderMot.addEventListener("click", () => {
-        console.log(inputEcriture.value)
         if (inputEcriture.value === listeProposition[i]) {
             score++
         }
         i++
         afficherResultat(score, i)
-        inputEcriture.value = ""
+        inputEcriture.value = ''
         if (listeProposition[i] === undefined) {
             afficherProposition("Le jeu est fini")
             btnValiderMot.disabled = true
         } else {
             afficherProposition(listeProposition[i])
         }
-
     })
-    // liers les boutons radios aux contenus affichés (phrase ou mot)
 
-    let listeBtnRadio = document.querySelectorAll('input[name="optionSource"]')
+    // Gestion de l'événement change sur les boutons radios. 
+    let listeBtnRadio = document.querySelectorAll(".optionSource input")
     for (let index = 0; index < listeBtnRadio.length; index++) {
         listeBtnRadio[index].addEventListener("change", (event) => {
-            console.log(event.target.value)
-            if(event.target.value === "1") {
+            // Si c'est le premier élément qui a été modifié, alors nous voulons
+            // jouer avec la listeMots. 
+            if (event.target.value === "1") {
                 listeProposition = listeMots
             } else {
+                // Sinon nous voulons jouer avec la liste des phrases
                 listeProposition = listePhrases
             }
+            // Et on modifie l'affichage en direct. 
             afficherProposition(listeProposition[i])
         })
     }
+
+    /**
+ * Gestion du bouton Submit sur le formulaire Pop-up "partager votre score"
+ */
+    const form = document.querySelector('form');
+
+    // Quand on submit
+    form.addEventListener("submit", (event) => {
+        // On empêche le comportement par défaut de l'event submit
+        event.preventDefault();
+
+        // On récupère les deux champs et on affiche leur valeur
+        const nom = document.getElementById("nom").value;
+        const email = document.getElementById("email").value;
+        console.log(nom, email);
+
+        //récupérer le score et le formater pour l'email
+        const scoreEmail = `${score} / ${i}`
+
+        afficherEmail(nom, email, scoreEmail)
+
+    });
 
     afficherResultat(score, i)
 }
