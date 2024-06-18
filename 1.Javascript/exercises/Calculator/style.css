@@ -11,9 +11,6 @@ body{
 main{
   display: flex;
   flex-direction: column;
-  justify-content: 
-  justify-content: center;
-
 }
 
 .display{
